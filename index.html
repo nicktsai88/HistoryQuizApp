@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>地理第3冊 東北亞的自然環境</title>
+    <title>歷史第5課 西力衝擊下的晚清變革</title>
     <link href="https://fonts.googleapis.com/css2?family=CwTeXYen:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --primary-color: #FF8C42; 
-            --secondary-color: #F9F871; 
-            --bg-color: #FFF5E1; 
-            --text-color: #4A4A4A;
-            --accent-color: #FF5E5E; 
-            --correct-color: #2ECC71;
-            --wrong-color: #E74C3C;
-            --locked-color: #BDC3C7;
-            --music-btn-color: #3498db; 
+            /* 歷史感配色 */
+            --primary-color: #8B0000;   /* 朱砂紅 (宮牆/印泥) */
+            --secondary-color: #D4AF37; /* 琉璃黃 (皇權/金屬) */
+            --bg-color: #F9F4DC;        /* 宣紙白 (仿舊紙張) */
+            --text-color: #2F2F2F;      /* 濃墨黑 */
+            --accent-color: #C0392B;    /* 警示紅 */
+            --correct-color: #27AE60;   /* 玉石綠 */
+            --wrong-color: #C0392B;     /* 硃批紅 */
+            --locked-color: #AAB7B8;    /* 錫器灰 */
+            --music-btn-color: #5D6D7E; /* 青花藍 */
         }
 
         body { 
@@ -26,24 +27,37 @@
             padding: 20px; 
             background-color: var(--bg-color); 
             color: var(--text-color);
-            background-image: radial-gradient(#FFD166 2px, transparent 2px);
-            background-size: 30px 30px; 
+            /* 仿宣紙紋理背景 */
+            background-image: radial-gradient(#D6CDB8 1px, transparent 1px);
+            background-size: 20px 20px; 
             min-height: 100vh;
         }
 
-        h1 { font-size: 2.5em; color: #D35400; text-align: center; margin-top: 0; text-shadow: 2px 2px 0px white; }
-        h2, h3 { color: #D35400; text-align: center; }
+        h1 { font-size: 2.8em; color: var(--primary-color); text-align: center; margin-top: 0; text-shadow: 2px 2px 0px rgba(255,255,255,0.5); font-weight: bold; letter-spacing: 2px;}
+        h2, h3 { color: #5B2C15; text-align: center; }
 
-        /* --- 主要容器 --- */
+        /* --- 主要容器 (書卷風格) --- */
         .quiz-container { 
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
             padding: 30px; 
-            border-radius: 25px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
-            border: 4px solid var(--primary-color);
+            border-radius: 15px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+            border: 6px double var(--primary-color); /* 雙線邊框 */
             position: relative;
             overflow: hidden;
             min-height: 500px;
+        }
+
+        /* --- 裝飾性角花 --- */
+        .quiz-container::before {
+            content: " ";
+            position: absolute; top: 5px; left: 5px; width: 30px; height: 30px;
+            border-top: 3px solid var(--primary-color); border-left: 3px solid var(--primary-color);
+        }
+        .quiz-container::after {
+            content: " ";
+            position: absolute; bottom: 5px; right: 5px; width: 30px; height: 30px;
+            border-bottom: 3px solid var(--primary-color); border-right: 3px solid var(--primary-color);
         }
 
         /* --- 動畫特效 --- */
@@ -51,31 +65,35 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
+        .fade-in { animation: fadeIn 0.5s ease-out; }
 
-        /* --- 按鈕樣式 --- */
+        /* --- 按鈕樣式 (匾額/印章風) --- */
         .btn {
-            background-color: var(--primary-color); color: white; border: none;
-            padding: 10px 25px; font-size: 1.3em; border-radius: 50px;
-            cursor: pointer; transition: 0.3s; box-shadow: 0 5px 0 #E67E22;
+            background-color: var(--primary-color); color: #FFF; border: none;
+            padding: 12px 28px; font-size: 1.3em; border-radius: 8px;
+            cursor: pointer; transition: 0.3s; 
+            box-shadow: 0 4px 0 #581212; /* 深紅色陰影 */
             font-family: inherit; font-weight: bold; margin: 8px; display: inline-block;
+            letter-spacing: 1px;
         }
-        .btn:hover { transform: translateY(-3px); }
+        .btn:hover { transform: translateY(-3px); background-color: #A93226; }
         .btn:active { transform: translateY(2px); box-shadow: none; }
-        .btn-green { background-color: var(--correct-color); box-shadow: 0 5px 0 #27AE60; }
-        .btn-red { background-color: var(--accent-color); box-shadow: 0 5px 0 #C0392B; }
-        .btn-gray { background-color: #95a5a6; box-shadow: 0 5px 0 #7f8c8d; }
-        .btn-blue { background-color: #3498db; box-shadow: 0 5px 0 #2980b9; }
+        
+        .btn-green { background-color: var(--correct-color); box-shadow: 0 4px 0 #1E8449; }
+        .btn-red { background-color: var(--accent-color); box-shadow: 0 4px 0 #922B21; }
+        .btn-gray { background-color: #7F8C8D; box-shadow: 0 4px 0 #626567; }
+        .btn-blue { background-color: #2980B9; box-shadow: 0 4px 0 #1A5276; }
         
         /* 小按鈕與音樂按鈕樣式 */
-        .btn-sm { padding: 8px 16px; font-size: 1em; margin: 0 2px; box-shadow: 0 3px 0 rgba(0,0,0,0.2); }
-        .btn-music { background-color: var(--music-btn-color); box-shadow: 0 3px 0 #2980b9; }
+        .btn-sm { padding: 8px 16px; font-size: 1em; margin: 0 2px; box-shadow: 0 2px 0 rgba(0,0,0,0.3); border-radius: 5px;}
+        .btn-music { background-color: var(--music-btn-color); box-shadow: 0 2px 0 #34495E; }
 
         /* --- 輸入框與快速登入 --- */
         input[type="text"] {
             padding: 12px; font-size: 1.5em; 
-            border: 3px solid var(--primary-color);
-            border-radius: 15px; margin: 15px; font-family: inherit; text-align: center; width: 80%;
+            border: 2px solid #8B4513; background-color: #FFFDF5;
+            border-radius: 8px; margin: 15px; font-family: inherit; text-align: center; width: 80%;
+            color: var(--text-color);
         }
         .quick-login-area {
             margin-top: 15px;
@@ -85,56 +103,50 @@
             gap: 10px;
         }
         .user-tag {
-            background: #FFF0D4;
-            border: 2px solid var(--primary-color);
+            background: #EFE6D5;
+            border: 2px solid #8B4513;
             padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 1.1em;
             transition: 0.2s;
-            color: #D35400;
+            color: #5B2C15;
             display: flex;
             align-items: center;
-            gap: 8px; /* 名字與垃圾桶的間距 */
+            gap: 8px; 
         }
-        .user-tag:hover { background: var(--primary-color); color: white; }
+        .user-tag:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
         
-        /* 垃圾桶圖示樣式 */
         .delete-user { 
-            font-size: 0.9em; 
-            cursor: pointer; 
-            padding: 2px 6px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.5);
-            transition: 0.2s;
+            font-size: 0.9em; cursor: pointer; padding: 2px 6px;
+            border-radius: 50%; background: rgba(0,0,0,0.1); transition: 0.2s;
         }
-        .delete-user:hover {
-            background: #E74C3C;
-            color: white;
-            transform: scale(1.2);
-        }
+        .delete-user:hover { background: #E74C3C; color: white; transform: scale(1.2); }
 
         /* --- 角色選擇區樣式 --- */
         .avatar-selection { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
         .avatar-option {
             width: 80px; height: 80px; border-radius: 50%; border: 4px solid transparent;
-            cursor: pointer; transition: 0.3s; object-fit: cover; background: white; padding: 2px;
+            cursor: pointer; transition: 0.3s; object-fit: cover; background: #FFF; padding: 2px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .avatar-option:hover { transform: scale(1.1); }
         .avatar-option.selected {
-            border-color: var(--correct-color); box-shadow: 0 0 15px var(--correct-color);
-            transform: scale(1.1); background: #e8f8f5;
+            border-color: var(--primary-color); box-shadow: 0 0 15px var(--secondary-color);
+            transform: scale(1.1); background: #FFFDF0;
         }
 
-        /* --- 關卡地圖樣式 --- */
+        /* --- 關卡地圖樣式 (歷史長河) --- */
         #level-screen {
-            background-image: url('images/map_bg.jpg'); 
+            background-image: url('images/map_bg.jpg'); /* 建議替換成一張古地圖或水墨山水畫 */
+            background-color: #D6CDB8; /* 備用背景色 */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border-radius: 15px;
+            border-radius: 10px;
             padding: 20px;
             min-height: 400px;
+            border: 2px solid #8B4513;
         }
 
         .level-map-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 20px 0; }
@@ -154,30 +166,30 @@
         }
 
         .level-btn {
-            background-color: white; border: 4px solid var(--primary-color);
-            border-radius: 50%;
+            background-color: #FFFDF5; border: 4px solid var(--primary-color);
+            border-radius: 50%; /* 圓形如同銅錢或圖章 */
             width: 100px;
             height: 100px;
             font-size: 1.1em;
             cursor: pointer;
             transition: 0.2s;
-            color: var(--primary-color);
+            color: #5B2C15;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
             position: relative;
             z-index: 2;
         }
-        .level-title { white-space: nowrap; font-weight: bold; margin-bottom: 5px; }
-        .level-btn:hover:not(:disabled) { background-color: #FFF0D4; transform: scale(1.1) rotate(3deg); }
-        .level-btn:disabled { background-color: #e0e0e0; border-color: var(--locked-color); color: var(--locked-color); cursor: not-allowed; }
+        .level-title { white-space: nowrap; font-weight: bold; margin-bottom: 5px; font-family: 'CwTeXYen'; }
+        .level-btn:hover:not(:disabled) { background-color: #FAD7A0; transform: scale(1.1) rotate(3deg); }
+        .level-btn:disabled { background-color: #D0D3D4; border-color: var(--locked-color); color: var(--locked-color); cursor: not-allowed; }
         .level-score { font-size: 0.8em; color: var(--correct-color); font-weight: bold; }
 
         .arrow-icon {
             font-size: 2.5em; color: var(--primary-color); margin: 0 5px;
-            text-shadow: 2px 2px 0 white; z-index: 1; display: block;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.8); z-index: 1; display: block;
         }
         .arrow-right { animation: bounceRight 2s infinite; }
         .arrow-left { animation: bounceLeft 2s infinite; transform: scaleX(-1); }
@@ -192,58 +204,53 @@
         }
         .row-connector.left { justify-content: flex-start; padding-left: 50px; padding-right: 0; }
 
-        /* --- 收藏圖鑑樣式 (Collection) --- */
+        /* --- 文物圖鑑樣式 (Collection) --- */
         .collection-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
             gap: 20px; padding: 10px;
         }
         .card-item {
-            position: relative; border-radius: 10px; overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
             aspect-ratio: 2/3; cursor: pointer; transition: 0.3s;
-            background: #eee; border: 3px solid #fff;
+            background: #EAECEE; border: 4px solid #FFF;
         }
-        .card-item:hover { transform: scale(1.05); z-index: 5; }
+        .card-item:hover { transform: scale(1.05); z-index: 5; box-shadow: 0 8px 16px rgba(0,0,0,0.4); border-color: var(--secondary-color); }
         .card-img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.3s; }
         
-        /* 鎖定狀態：圖片變灰 + 鎖頭遮罩 */
-        .card-item.locked .card-img {
-            filter: grayscale(80%) opacity(0.6); 
-        }
-        .card-item.locked {
-            cursor: default;
-        }
+        .card-item.locked .card-img { filter: grayscale(90%) sepia(20%) opacity(0.5); }
+        .card-item.locked { cursor: default; background: #D6CDB8; }
         
-        /* 鎖頭遮罩層 */
         .card-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.1);
             display: flex; flex-direction: column;
             align-items: center; justify-content: center;
             color: #555; text-align: center;
         }
-        .card-lock-icon { font-size: 3em; margin-bottom: 5px; text-shadow: 2px 2px 5px rgba(255,255,255,0.8); }
+        .card-lock-icon { font-size: 3em; margin-bottom: 5px; color: #5B2C15; opacity: 0.7;}
         .card-label { 
-            position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.7);
-            color: white; text-align: center; font-size: 0.9em; padding: 5px 0;
+            position: absolute; bottom: 0; width: 100%; background: rgba(91, 44, 21, 0.8);
+            color: #F1C40F; text-align: center; font-size: 0.9em; padding: 5px 0; font-weight: bold;
         }
 
         /* 彈窗樣式 (通用) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); z-index: 2000; display: none;
+            background: rgba(0,0,0,0.85); z-index: 2000; display: none;
             justify-content: center; align-items: center; animation: fadeIn 0.3s;
         }
         .modal-content {
-            background: white; padding: 10px; border-radius: 15px;
+            background: #FFFDF5; padding: 15px; border-radius: 10px;
             max-width: 90%; max-height: 90%; position: relative; text-align: center;
+            border: 4px solid var(--secondary-color);
         }
-        .modal-img { max-width: 100%; max-height: 80vh; border-radius: 10px; }
+        .modal-img { max-width: 100%; max-height: 80vh; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.2);}
         .modal-close {
             position: absolute; top: -20px; right: -20px;
-            background: var(--wrong-color); color: white; border: none;
+            background: var(--wrong-color); color: white; border: 2px solid white;
             width: 40px; height: 40px; border-radius: 50%; font-size: 1.5em;
-            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         @media (max-width: 600px) {
@@ -252,7 +259,7 @@
             .arrow-right, .arrow-left, .row-connector { display: none; }
             .level-wrapper::after {
                 content: '⬇'; font-size: 2.5em; color: var(--primary-color);
-                text-shadow: 2px 2px 0 white; animation: bounceDown 2s infinite;
+                text-shadow: 2px 2px 0 rgba(255,255,255,0.5); animation: bounceDown 2s infinite;
                 display: block; margin: 5px 0;
             }
             .level-wrapper:last-child::after { display: none; }
@@ -261,53 +268,59 @@
 
         /* --- 題目樣式 --- */
         .question-box { 
-            background-color: #FFF9F0; 
-            border-left: 8px solid var(--accent-color);
-            padding: 20px; margin-bottom: 20px; border-radius: 15px;
+            background-color: #FFFDF5; 
+            border-left: 8px solid var(--primary-color);
+            border-right: 1px solid #CCC;
+            border-top: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            padding: 20px; margin-bottom: 20px; border-radius: 5px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
         }
-        .question-text { font-size: 1.8em; font-weight: 600; line-height: 1.6; }
+        .question-text { font-size: 1.8em; font-weight: 600; line-height: 1.6; color: #333; }
         
         .question-img { 
             max-width: 100%; 
-            max-height: 220px;
+            max-height: 250px;
             width: auto;
             object-fit: contain;
             display: block; 
             margin: 15px auto; 
-            border: 4px solid white; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
-            border-radius: 15px; 
+            border: 5px solid white; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+            border-radius: 5px; 
+            background: #eee;
         }
 
         .option-btn { 
             width: 100%; padding: 15px; margin: 10px 0; text-align: left; 
-            background: white; border: 3px solid #FFE4B5; border-radius: 20px; 
+            background: white; border: 2px solid #D6CDB8; border-radius: 10px; 
             cursor: pointer; transition: 0.2s; font-size: 1.5em; line-height: 1.4;
-            font-family: inherit; position: relative;
+            font-family: inherit; position: relative; color: #444;
         }
-        .option-btn:hover { background-color: #FFF0D4; border-color: var(--primary-color); }
-        .correct { background-color: #D4EDDA !important; border-color: var(--correct-color) !important; color: #155724; }
-        .wrong { background-color: #F8D7DA !important; border-color: var(--wrong-color) !important; color: #721C24; }
+        .option-btn:hover { background-color: #FDF2E9; border-color: var(--primary-color); }
+        .correct { background-color: #D4EDDA !important; border-color: var(--correct-color) !important; color: #155724; font-weight:bold; }
+        .wrong { background-color: #F9EBEA !important; border-color: var(--wrong-color) !important; color: #721C24; }
 
         /* --- 進度條與其他 --- */
-        .progress-container { width: 100%; background-color: #eee; border-radius: 10px; margin: 15px 0; height: 25px; overflow: hidden; }
-        .progress-bar { height: 100%; background-color: var(--correct-color); width: 0%; transition: width 0.3s ease; }
+        .progress-container { width: 100%; background-color: #D6CDB8; border-radius: 10px; margin: 15px 0; height: 20px; overflow: hidden; border:1px solid #999; }
+        .progress-bar { height: 100%; background-color: var(--primary-color); width: 0%; transition: width 0.3s ease; background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent); background-size: 1rem 1rem;}
 
         .explanation-box, .review-item {
-            margin-top: 20px; padding: 20px; background-color: #E8F6F3;
-            border: 3px dashed #1ABC9C; border-radius: 15px; 
+            margin-top: 20px; padding: 20px; background-color: #E8F8F5;
+            border: 2px dashed #1ABC9C; border-radius: 10px; 
             color: #0E6251; font-size: 1.3em; text-align: left; line-height: 1.6;
         }
         .review-list { list-style: none; padding: 0; }
-        .review-item { margin-bottom: 25px; background: white; border: 2px solid #eee; }
+        .review-item { margin-bottom: 25px; background: white; border: 1px solid #ccc; border-left: 5px solid #aaa; }
         .tag { padding: 4px 10px; border-radius: 5px; font-size: 0.8em; color: white; margin-right: 8px; vertical-align: middle;}
         .tag-correct { background-color: var(--correct-color); }
         .tag-wrong { background-color: var(--wrong-color); }
         #history-list { list-style: none; padding: 0; }
         #history-list li { 
-            background: white; margin: 15px 0; padding: 20px; border-radius: 20px; 
-            border: 2px solid #eee; display: flex; justify-content: space-between; 
+            background: white; margin: 15px 0; padding: 20px; border-radius: 10px; 
+            border: 1px solid #D6CDB8; display: flex; justify-content: space-between; 
             align-items: center; flex-wrap: wrap; font-size: 1.2em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         
         /* 頂部標題列樣式 */
@@ -317,6 +330,8 @@
             align-items: center;
             flex-wrap: wrap;
             margin-bottom: 15px;
+            border-bottom: 2px solid #D6CDB8;
+            padding-bottom: 10px;
         }
         .header-controls {
             display: flex;
@@ -331,125 +346,132 @@
         <audio id="bgm-player"></audio>
 
         <div id="welcome-screen" class="fade-in">
-            <h1>地理第3冊 東北亞的自然環境</h1>
-            <div style="font-size: 5em; margin: 30px;">🌏✨🇯🇵🇰🇷</div>
-            <p style="font-size: 1.5em;">請輸入你的名字並選擇一位冒險夥伴！</p>
-            <input type="text" id="username" placeholder="你的名字是..." />
+            <h1>歷史第五課 西力衝擊下的晚清變革</h1>
+            <div style="font-size: 5em; margin: 30px; text-align:center;">📜🏮🐲🏯</div>
+            <p style="font-size: 1.5em; text-align: center; color: #5B2C15;">穿越時空，重回晚清變局。<br>請輸入大名，準備進京趕考！</p>
+            
+            <div style="text-align:center;">
+                <input type="text" id="username" placeholder="請輸入閣下尊姓大名..." />
+            </div>
             
             <div class="avatar-selection">
-                <img src="images/avatar_boy1.png" class="avatar-option selected" onclick="selectAvatar('avatar_boy1.png', this)">
-                <img src="images/avatar_boy2.png" class="avatar-option" onclick="selectAvatar('avatar_boy2.png', this)">
-                <img src="images/avatar_girl1.png" class="avatar-option" onclick="selectAvatar('avatar_girl1.png', this)">
-                <img src="images/avatar_girl2.png" class="avatar-option" onclick="selectAvatar('avatar_girl2.png', this)">
+                <img src="images/avatar_boy1.png" class="avatar-option selected" onclick="selectAvatar('avatar_boy1.png', this)" title="書生">
+                <img src="images/avatar_boy2.png" class="avatar-option" onclick="selectAvatar('avatar_boy2.png', this)" title="武將">
+                <img src="images/avatar_girl1.png" class="avatar-option" onclick="selectAvatar('avatar_girl1.png', this)" title="格格">
+                <img src="images/avatar_girl2.png" class="avatar-option" onclick="selectAvatar('avatar_girl2.png', this)" title="女史">
             </div>
 
             <div id="quick-login-area" class="quick-login-area"></div>
 
             <br><br>
-            <button class="btn" onclick="loginAndStart()">👉 進入關卡地圖</button>
+            <div style="text-align:center;">
+                <button class="btn" onclick="loginAndStart()">📜 進入歷史長河</button>
+            </div>
         </div>
 
         <div id="level-screen" style="display: none; text-align: center;" class="fade-in">
-            <div style="background: rgba(255,255,255,0.8); padding:10px; border-radius:10px; display:inline-block; margin-bottom:10px;">
-                <h2 style="margin:0;">🗺️ 東北亞探險地圖</h2>
-                <p style="font-size: 1.2em; margin:5px;">
-                    <img id="user-avatar-display" src="" style="width:30px; vertical-align:middle; border-radius:50%;">
-                    冒險家：<span id="display-name" style="color:var(--primary-color); font-weight:bold;"></span>
+            <div style="background: rgba(255,253,240,0.9); padding:10px 20px; border-radius:10px; display:inline-block; margin-bottom:10px; border: 2px solid #8B4513;">
+                <h2 style="margin:0; color: #8B0000;">🗺️ 晚清變局全圖</h2>
+                <p style="font-size: 1.2em; margin:5px; color: #5B2C15;">
+                    <img id="user-avatar-display" src="" style="width:30px; vertical-align:middle; border-radius:50%; border:1px solid #555;">
+                    史官：<span id="display-name" style="color:#C0392B; font-weight:bold;"></span>
                 </p>
             </div>
             
             <div id="level-map" class="level-map-container"></div>
             
-            <div style="margin-top: 20px; background: rgba(255,255,255,0.9); padding:10px; border-radius:15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-                <button id="btn-mistake" class="btn btn-red" onclick="startQuiz('mistake')" style="display:none;">📕 挑戰錯題本 (<span id="mistake-count">0</span>)</button>
-                <button class="btn btn-blue" onclick="showCollection()">🎴 我的圖鑑</button>
-                <button class="btn btn-green" onclick="showHistory()">📜 查看紀錄</button>
+            <div style="margin-top: 20px; background: rgba(255,255,255,0.8); padding:15px; border-radius:15px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; border: 1px solid #D6CDB8;">
+                <button id="btn-mistake" class="btn btn-red" onclick="startQuiz('mistake')" style="display:none;">📕 史官勘誤 (<span id="mistake-count">0</span>)</button>
+                <button class="btn btn-blue" onclick="showCollection()">🎴 博古圖鑑</button>
+                <button class="btn btn-green" onclick="showHistory()">📜 青史留名</button>
                 
-                <div style="display:inline-flex; gap:5px; align-items:center; background:#eee; padding:5px; border-radius:30px;">
-                    <button class="btn btn-sm btn-music" onclick="toggleMusic()" title="播放/暫停">⏯️</button>
-                    <button class="btn btn-sm btn-music" onclick="nextTrack()" title="下一首">⏭️</button>
+                <div style="display:inline-flex; gap:5px; align-items:center; background:#D6CDB8; padding:5px; border-radius:30px;">
+                    <button class="btn btn-sm btn-music" onclick="toggleMusic()" title="奏樂/靜音">🎵</button>
+                    <button class="btn btn-sm btn-music" onclick="nextTrack()" title="換曲">⏭️</button>
                 </div>
 
-                <button class="btn btn-gray" onclick="logout()">🚪 登出</button>
+                <button class="btn btn-gray" onclick="logout()">🚪 暫離官場</button>
             </div>
         </div>
 
         <div id="quiz-content" style="display: none;" class="fade-in">
             <div class="quiz-header">
-                <h3 id="level-title" style="margin:0; font-size: 1.5em;">第 X 關</h3>
+                <h3 id="level-title" style="margin:0; font-size: 1.5em; color: #8B0000;">第 X 回</h3>
                 
                 <div class="header-controls">
-                    <button class="btn btn-sm btn-music" style="margin:0;" onclick="toggleMusic()" title="播放/暫停">⏯️</button>
-                    <button class="btn btn-sm btn-music" style="margin:0;" onclick="nextTrack()" title="下一首">⏭️</button>
+                    <button class="btn btn-sm btn-music" style="margin:0;" onclick="toggleMusic()" title="奏樂/靜音">🎵</button>
+                    <button class="btn btn-sm btn-music" style="margin:0;" onclick="nextTrack()" title="換曲">⏭️</button>
                     
-                    <button class="btn btn-gray btn-sm" style="margin:0;" onclick="exitQuiz()">🏠 回到地圖</button>
+                    <button class="btn btn-gray btn-sm" style="margin:0;" onclick="exitQuiz()">🏠 返回地圖</button>
                 </div>
             </div>
             
             <div class="progress-container">
                 <div id="progress-bar" class="progress-bar"></div>
             </div>
-            <div style="text-align: right; font-size: 1.1em; color: gray;">
-                題號: <span id="current-q-num">1</span> / <span id="total-q-num">20</span>
+            <div style="text-align: right; font-size: 1.1em; color: #5B2C15; font-weight: bold;">
+                考題: <span id="current-q-num">1</span> / <span id="total-q-num">20</span>
             </div>
 
             <div id="question-container" class="fade-in">
                 <div class="question-box">
-                    <div id="question-text" class="question-text">載入中...</div>
+                    <div id="question-text" class="question-text">試題載入中...</div>
                     <img id="question-image" class="question-img" style="display: none;" />
                 </div>
                 <ul id="options-list" style="list-style: none; padding: 0;"></ul>
             </div>
             
             <div id="explanation" class="explanation-box" style="display: none;">
-                <strong>💡 解析：</strong> <span id="explanation-text"></span>
+                <strong>💡 史實解析：</strong> <span id="explanation-text"></span>
             </div>
 
             <button id="next-btn" class="btn" style="display: none; width: 100%; margin-top: 25px;" onclick="nextQuestion()">下一題 ➡️</button>
         </div>
 
         <div id="score-box" style="display: none; text-align: center;" class="fade-in">
-            <h2>🎉 關卡完成！</h2>
-            <p style="font-size: 2em; margin: 10px 0; font-weight: bold; color: var(--primary-color);">參賽者：<span id="final-name"></span></p>
-            <p style="font-size: 4em; margin: 10px 0; font-weight: bold; color: var(--accent-color);"><span id="final-score"></span> 分</p>
-            <div id="score-comment" style="font-size: 1.5em; margin-bottom: 25px;"></div>
-            <div id="unlock-msg" style="color: var(--correct-color); font-weight: bold; display:none; margin-bottom: 15px; font-size: 1.5em;">🔓 下一關已解鎖！</div>
+            <h2 style="color: #8B0000;">🎉 考核完成！</h2>
+            <p style="font-size: 2em; margin: 10px 0; font-weight: bold; color: #5B2C15;">應試者：<span id="final-name"></span></p>
+            <p style="font-size: 4em; margin: 10px 0; font-weight: bold; color: #C0392B; font-family: 'Times New Roman', serif;"><span id="final-score"></span> 分</p>
+            <div id="score-comment" style="font-size: 1.5em; margin-bottom: 25px; color: #D35400;"></div>
+            <div id="unlock-msg" style="color: var(--correct-color); font-weight: bold; display:none; margin-bottom: 15px; font-size: 1.5em;">🔓 下一回目已解鎖！</div>
             
-            <div id="new-card-alert" style="display:none; background:#e8f8f5; border:2px solid var(--correct-color); border-radius:15px; padding:10px; margin: 10px 0;">
-                 <h3 style="margin:5px;">✨ 恭喜獲得新卡片！ ✨</h3>
-                 <p style="font-size: 1.2em;">快去「我的圖鑑」看看吧！</p>
+            <div id="new-card-alert" style="display:none; background:#FFFDF0; border:2px solid var(--secondary-color); border-radius:15px; padding:10px; margin: 10px 0;">
+                 <h3 style="margin:5px; color: #D4AF37;">✨ 恭喜獲得珍貴文物！ ✨</h3>
+                 <p style="font-size: 1.2em;">快去「博古圖鑑」鑑賞吧！</p>
             </div>
 
             <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
                 <button class="btn" onclick="goToLevelScreen()">🗺️ 返回地圖</button>
-                <button class="btn btn-green" onclick="toggleReview()">📝 查看完整解析</button>
+                <button class="btn btn-green" onclick="toggleReview()">📝 試卷詳解</button>
             </div>
 
             <div id="full-review-area" style="display: none; margin-top: 40px;">
                 <h3>🔍 試卷回顧</h3>
                 <ul id="review-list" class="review-list"></ul>
-                <button class="btn" onclick="goToLevelScreen()">🗺️ 返回探險地圖</button>
+                <button class="btn" onclick="goToLevelScreen()">🗺️ 返回地圖</button>
             </div>
         </div>
 
         <div id="history-screen" style="display: none;" class="fade-in">
-            <h2>📜 冒險英雄榜</h2>
+            <h2>📜 英雄榜 (歷史紀錄)</h2>
             <ul id="history-list"></ul>
-            <div style="margin-top: 30px;">
+            <div style="margin-top: 30px; text-align: center;">
                 <button class="btn" onclick="goToLevelScreen()">🗺️ 返回地圖</button>
             </div>
         </div>
         
         <div id="history-detail-screen" style="display: none;" class="fade-in">
             <h3>📜 歷史試卷回顧</h3>
-            <p style="font-size: 1.2em;">時間：<span id="history-date"></span> | 分數：<span id="history-score"></span></p>
+            <p style="font-size: 1.2em;">時間：<span id="history-date"></span> | 成績：<span id="history-score"></span></p>
             <ul id="history-review-list" class="review-list"></ul>
-            <button class="btn" onclick="showHistory()">⬅️ 返回列表</button>
+            <div style="text-align:center;">
+                <button class="btn" onclick="showHistory()">⬅️ 返回列表</button>
+            </div>
         </div>
 
         <div id="collection-screen" style="display: none;" class="fade-in">
-            <h2>🎴 我的圖鑑</h2>
-            <p style="text-align:center; color:#666; font-size: 1.2em;">達成 80 分即可解鎖該關卡卡片！</p>
+            <h2>🎴 博古圖鑑</h2>
+            <p style="text-align:center; color:#5B2C15; font-size: 1.2em;">考核達 80 分即可獲贈該回文物！</p>
             <div id="collection-grid" class="collection-grid"></div>
             <div style="text-align:center; margin-top:20px;">
                 <button class="btn" onclick="goToLevelScreen()">🗺️ 返回地圖</button>
@@ -460,13 +482,14 @@
             <div class="modal-content" onclick="event.stopPropagation()">
                 <button class="modal-close" onclick="closeCardModal()">×</button>
                 <img id="modal-img" class="modal-img" src="">
-                <h3 id="modal-title" style="margin-top:10px;"></h3>
+                <h3 id="modal-title" style="margin-top:10px; color: #8B0000;"></h3>
             </div>
         </div>
     </div>
 
     <script>
-        const LEVEL_CONFIG = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 18];
+        // 調整為適合大量題目的關卡配置 (每關20題，依題目量調整)
+        const LEVEL_CONFIG = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20];
         const ITEMS_PER_ROW = 4;
         const PLAYLIST = ['sounds/bgm1.mp3', 'sounds/bgm2.mp3', 'sounds/bgm3.mp3'];
 
@@ -503,12 +526,12 @@
             let container = document.getElementById('quick-login-area');
             container.innerHTML = "";
             if(users.length > 0) {
-                container.innerHTML = '<div style="width:100%; text-align:center; color:#666; font-size:0.9em; margin-bottom:5px;">快速登入</div>';
+                container.innerHTML = '<div style="width:100%; text-align:center; color:#8B4513; font-size:0.9em; margin-bottom:5px;">-- 舊雨重逢 (快速登入) --</div>';
                 users.forEach(userObj => {
                     let name = typeof userObj === 'string' ? userObj : userObj.name;
                     let avatar = typeof userObj === 'string' ? 'avatar_boy1.png' : userObj.avatar;
                     let div = document.createElement('div');
-                    div.innerHTML = `<span class="user-tag" onclick="quickLogin('${name}', '${avatar}')"><img src="images/${avatar}" style="width:25px; height:25px; border-radius:50%; margin-right:5px;">${name}<span class="delete-user" onclick="event.stopPropagation(); deleteUser('${name}')">🗑️</span></span>`;
+                    div.innerHTML = `<span class="user-tag" onclick="quickLogin('${name}', '${avatar}')"><img src="images/${avatar}" style="width:25px; height:25px; border-radius:50%; margin-right:5px; border:1px solid #8B4513;">${name}<span class="delete-user" onclick="event.stopPropagation(); deleteUser('${name}')">×</span></span>`;
                     container.appendChild(div);
                 });
             }
@@ -522,13 +545,10 @@
             loginAndStart();
         }
         function deleteUser(name) {
-            if (!confirm(`確定要刪除「${name}」的所有資料嗎？\n(包含登入紀錄、作答歷史、錯題本)`)) return;
-            if (!confirm(`⚠️ 警告：刪除後資料完全消失且無法復原！\n您真的確定要刪除「${name}」嗎？`)) return;
-
+            if (!confirm(`確定要刪除「${name}」的所有功名資料嗎？\n(包含紀錄、錯題本)`)) return;
             localStorage.removeItem(name + '_mistakeBank');
             localStorage.removeItem(name + '_quizHistory');
             localStorage.removeItem(name + '_quizProgress');
-
             let users = getSavedUsers();
             users = users.filter(u => (typeof u === 'string' ? u : u.name) !== name);
             localStorage.setItem('savedUsers', JSON.stringify(users));
@@ -536,7 +556,7 @@
         }
         function loginAndStart() {
             const inputName = document.getElementById('username').value.trim();
-            if (!inputName) { alert("請先輸入名字！"); return; }
+            if (!inputName) { alert("請留下大名！"); return; }
             userName = inputName;
             localStorage.setItem('quizUserName', userName);
             localStorage.setItem('quizUserAvatar', currentAvatar);
@@ -586,14 +606,14 @@
                         let bestScore = progress.levelScores[levelNum];
                         let icon = bestScore >= 80 ? '🚩' : '🏳️';
                         if (bestScore === 100) icon = '👑'; else if (bestScore >= 90) icon = '⭐';
-                        let scoreText = bestScore !== undefined ? `<div class="level-score">${bestScore}分</div>` : '<div class="level-score">GO!</div>';
-                        btn.innerHTML = `<div class="level-title">${icon} 第 ${levelNum} 關</div>${scoreText}`;
+                        let scoreText = bestScore !== undefined ? `<div class="level-score">${bestScore}分</div>` : '<div class="level-score">出發</div>';
+                        btn.innerHTML = `<div class="level-title">${icon} 第${levelNum}回</div>${scoreText}`;
                         btn.onclick = () => startQuiz('level', levelNum);
                         if (levelNum === progress.maxLevel) {
                             let avatarImg = document.createElement('img'); avatarImg.src = "images/" + currentAvatar; avatarImg.className = "map-avatar"; wrapper.appendChild(avatarImg);
                         }
                     } else {
-                        btn.disabled = true; btn.innerHTML = `<div class="level-title">🔒 第 ${levelNum} 關</div><div class="level-score" style="color:gray">鎖定</div>`;
+                        btn.disabled = true; btn.innerHTML = `<div class="level-title">🔒 第${levelNum}回</div><div class="level-score" style="color:gray">待解</div>`;
                     }
                     wrapper.appendChild(btn);
                     if (itemIndex < rowItems.length - 1) {
@@ -614,23 +634,23 @@
         }
 
         function logout() { location.reload(); }
-        function exitQuiz() { if(confirm("確定要放棄目前的進度回到探險地圖嗎？")) goToLevelScreen(); }
+        function exitQuiz() { if(confirm("確定要放棄目前的進度，返回地圖嗎？")) goToLevelScreen(); }
 
         function startQuiz(mode, levelNum) {
             isMistakeMode = (mode === 'mistake'); userAnswers = {}; score = 0; currentQuestionIndex = 0;
             if (isMistakeMode) {
                 let mistakeIds = JSON.parse(localStorage.getItem(getUserKey('mistakeBank'))) || [];
                 currentQuizQuestions = allQuestions.filter(q => mistakeIds.includes(q.id));
-                document.getElementById('level-title').innerText = "📕 錯題挑戰";
+                document.getElementById('level-title').innerText = "📕 史官勘誤";
             } else {
                 currentLevel = levelNum;
                 let startIndex = 0; for (let i = 0; i < levelNum - 1; i++) { startIndex += LEVEL_CONFIG[i]; }
                 let endIndex = startIndex + LEVEL_CONFIG[levelNum - 1];
-                if (allQuestions.length < endIndex) { alert(`題目載入中或不足，請稍後再試。`); return; }
+                if (allQuestions.length < endIndex) { alert(`題目卷宗整理中，請稍後再試。`); return; }
                 currentQuizQuestions = allQuestions.slice(startIndex, endIndex);
-                document.getElementById('level-title').innerText = `🚩 第 ${levelNum} 關`;
+                document.getElementById('level-title').innerText = `🚩 第 ${levelNum} 回`;
             }
-            if (currentQuizQuestions.length === 0) { alert("目前沒有題目可以考喔！"); return; }
+            if (currentQuizQuestions.length === 0) { alert("目前無題目可考！"); return; }
             document.getElementById('level-screen').style.display = 'none';
             document.getElementById('quiz-content').style.display = 'block';
             document.getElementById('total-q-num').innerText = currentQuizQuestions.length;
@@ -664,14 +684,14 @@
             const selectedCode = selectedOption.substring(0, 3); const correctCode = questionData.answer.substring(0, 3);
             if (selectedCode === correctCode) {
                 btn.classList.add('correct'); score++; audioCorrect.play().catch(e=>{});
-                confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 } });
+                confetti({ particleCount: 50, spread: 50, origin: { y: 0.7 }, colors: ['#D4AF37', '#8B0000'] });
                 if (isMistakeMode) removeFromMistakeBank(questionData.id);
             } else {
                 btn.classList.add('wrong'); audioFail.play().catch(e=>{});
                 buttons.forEach(button => { if (button.innerText.substring(0, 3) === correctCode) button.classList.add('correct'); });
                 addToMistakeBank(questionData.id);
             }
-            document.getElementById('explanation-text').innerText = questionData.explanation || "暫無解析";
+            document.getElementById('explanation-text').innerText = questionData.explanation || "暫無文獻記載";
             document.getElementById('explanation').style.display = 'block';
             document.getElementById('next-btn').style.display = 'block';
         }
@@ -691,10 +711,10 @@
             document.getElementById('final-name').innerText = userName;
             let comment = "", progress = getProgress(), isPass = finalScore >= 80;
             
-            if(finalScore === 100) comment = "🏆 完美通關！太強了！"; 
-            else if(finalScore >= 90) comment = "🌟 優秀！繼續保持！"; 
-            else if(finalScore >= 80) comment = "🎉 恭喜過關！下一關解鎖！"; 
-            else comment = "💪 加油！80分才能解鎖下一關喔！";
+            if(finalScore === 100) comment = "🏆 狀元及第！無人能出其右！"; 
+            else if(finalScore >= 90) comment = "🌟 榜眼之才！名列前茅！"; 
+            else if(finalScore >= 80) comment = "🎉 進士出身！恭喜過關！"; 
+            else comment = "💪 尚需努力！八十分方能晉級！";
             
             document.getElementById('score-comment').innerText = comment;
             let unlockMsg = document.getElementById('unlock-msg');
@@ -713,7 +733,7 @@
                     unlockMsg.style.display = 'block'; 
                 } else unlockMsg.style.display = 'none';
                 
-                confetti({ particleCount: 200, spread: 150 });
+                confetti({ particleCount: 200, spread: 150, colors: ['#D4AF37', '#C0392B', '#FFF'] });
             } else {
                 unlockMsg.style.display = 'none';
             }
@@ -721,7 +741,7 @@
             if(gotNewCard) newCardAlert.style.display = 'block'; else newCardAlert.style.display = 'none';
 
             if (!isMistakeMode) saveProgress(currentLevel, finalScore);
-            saveHistory(userName, finalScore, currentQuizQuestions, userAnswers, isMistakeMode ? "錯題挑戰" : `第 ${currentLevel} 關`);
+            saveHistory(userName, finalScore, currentQuizQuestions, userAnswers, isMistakeMode ? "史官勘誤" : `第 ${currentLevel} 回`);
             renderReviewList('review-list', currentQuizQuestions, userAnswers);
         }
 
@@ -744,14 +764,14 @@
                 if (isUnlocked) {
                     cardItem.className = 'card-item';
                     cardItem.innerHTML = `<img src="${imgSrc}" class="card-img" onerror="this.style.display='none'">`;
-                    cardItem.onclick = () => openCardModal(imgSrc, `第 ${i} 關獎勵`);
+                    cardItem.onclick = () => openCardModal(imgSrc, `第 ${i} 回文物`);
                 } else {
                     cardItem.className = 'card-item locked';
                     cardItem.innerHTML = `
                         <img src="${imgSrc}" class="card-img" onerror="this.style.display='none'">
                         <div class="card-overlay">
                             <div class="card-lock-icon">🔒</div>
-                            <div class="card-label">第 ${i} 關</div>
+                            <div class="card-label">第 ${i} 回</div>
                         </div>
                     `;
                 }
@@ -792,10 +812,10 @@
             questionsData.forEach((q, index) => {
                 let userAns = answersData[q.id], correctAns = q.answer;
                 let isRight = (userAns && userAns.substring(0,3) === correctAns.substring(0,3));
-                let tagClass = isRight ? "tag-correct" : "tag-wrong", tagText = isRight ? "答對" : "答錯";
-                let html = `<li class="review-item" style="padding:15px; border-radius:10px;"><div style="font-weight:bold; margin-bottom:10px;"><span class="tag ${tagClass}">${tagText}</span> ${index + 1}. ${q.question}</div>`;
+                let tagClass = isRight ? "tag-correct" : "tag-wrong", tagText = isRight ? "正確" : "錯誤";
+                let html = `<li class="review-item"><div style="font-weight:bold; margin-bottom:10px;"><span class="tag ${tagClass}">${tagText}</span> ${index + 1}. ${q.question}</div>`;
                 if (q.image) html += `<img src="${q.image}" style="max-height:150px; display:block; margin:10px 0;">`;
-                html += `<div style="font-size:0.9em; color:#555;">你的答案：${userAns || "未作答"} <br> 正確答案：<span style="color:#27AE60; font-weight:bold;">${correctAns}</span></div><div style="margin-top:5px; background:#f0f0f0; padding:8px; border-radius:5px; font-size:0.9em;">💡 ${q.explanation || "無解析"}</div></li>`;
+                html += `<div style="font-size:0.9em; color:#555;">你的答案：${userAns || "未作答"} <br> 正史記載：<span style="color:#27AE60; font-weight:bold;">${correctAns}</span></div><div style="margin-top:5px; background:#F4F6F6; padding:8px; border-radius:5px; font-size:0.9em; color:#2C3E50;">💡 ${q.explanation || "暫無文獻解析"}</div></li>`;
                 list.innerHTML += html;
             });
         }
@@ -809,18 +829,17 @@
             document.getElementById('history-screen').style.display = 'block';
             let history = JSON.parse(localStorage.getItem(getUserKey('quizHistory'))) || [];
             let list = document.getElementById('history-list'); list.innerHTML = "";
-            if(history.length === 0) list.innerHTML = "<li style='justify-content:center'>暫無紀錄</li>";
+            if(history.length === 0) list.innerHTML = "<li style='justify-content:center'>尚無史料記載</li>";
             else {
                 history.reverse().forEach(rec => {
                     let li = document.createElement('li');
-                    li.innerHTML = `<div class="history-info"><strong>${rec.mode}</strong> - <span style="color:${rec.score>=80?'#27AE60':'#C0392B'}">${rec.score}分</span><br><small style="color:gray">${rec.date}</small></div><div class="history-actions"><button class="btn btn-green btn-sm" onclick="replayHistory(${rec.id})">回放</button><button class="btn btn-red btn-sm" onclick="deleteHistoryItem(${rec.id})">🗑️</button></div>`;
+                    li.innerHTML = `<div class="history-info"><strong>${rec.mode}</strong> - <span style="color:${rec.score>=80?'#27AE60':'#C0392B'}">${rec.score}分</span><br><small style="color:gray">${rec.date}</small></div><div class="history-actions"><button class="btn btn-green btn-sm" onclick="replayHistory(${rec.id})">調閱</button><button class="btn btn-red btn-sm" onclick="deleteHistoryItem(${rec.id})">銷毀</button></div>`;
                     list.appendChild(li);
                 });
             }
         }
         function deleteHistoryItem(id) {
-            if(!confirm("確定要刪除這筆作答紀錄嗎？")) return;
-            if(!confirm("⚠️ 警告：刪除後無法復原！\n您真的確定要刪除嗎？")) return;
+            if(!confirm("確定要銷毀這份史料嗎？")) return;
             let history = JSON.parse(localStorage.getItem(getUserKey('quizHistory'))) || [];
             history = history.filter(r => r.id !== id);
             localStorage.setItem(getUserKey('quizHistory'), JSON.stringify(history));
@@ -836,13 +855,6 @@
             document.getElementById('history-score').innerText = record.score;
             let examQuestions = allQuestions.filter(q => record.questionIds.includes(q.id));
             renderReviewList('history-review-list', examQuestions, record.answers);
-        }
-        
-        function clearAllHistory() {
-            if(confirm("確定要刪除 *全部* 歷史紀錄嗎？")) {
-                localStorage.removeItem('quizHistory');
-                showHistory();
-            }
         }
     </script>
 </body>
