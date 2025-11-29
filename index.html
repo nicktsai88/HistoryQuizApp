@@ -138,23 +138,38 @@
 
         /* --- 關卡地圖樣式 (歷史長河) --- */
         #level-screen {
-            /* 🟢 修改 1: 換上新的大清地圖作為背景 */
             background-image: url('images/qing_map.jpg'); 
+            background-color: #D6CDB8; 
             
-            background-color: #D6CDB8; /* 圖片載入失敗時的備用色 */
-            
-            /* 🟢 修改 2: 讓地圖填滿整個區塊，並不重複 */
             background-size: cover; 
             background-position: center;
             background-repeat: no-repeat;
             
-            /* 🟢 修改 3: 加上深褐色邊框與內陰影，營造古畫卷的感覺 */
             border: 4px double #5B2C15; 
             box-shadow: inset 0 0 50px rgba(91, 44, 21, 0.3);
             
             border-radius: 10px;
             padding: 20px;
-            min-height: 500px; /*稍微加高一點，讓地圖露出的範圍更多*/
+            min-height: 500px;
+            
+            /* 確保按鈕在背景之上 */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 🟢 新增: iPad/手機 直向模式 (Portrait) 的特殊設定 */
+        @media (orientation: portrait) {
+            #level-screen {
+                /* 在直向模式下，強制拉高地圖區域，以顯示完整的直向地圖 */
+                min-height: 80vh; /* 佔據螢幕高度的 80% */
+                background-position: center top; /* 從上方開始顯示 */
+            }
+            
+            .level-map-container {
+                /* 讓關卡按鈕稍微分散一點，適應長螢幕 */
+                gap: 30px; 
+                margin-top: 40px;
+            }
         }
 
         .level-map-container { display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 20px 0; }
@@ -174,10 +189,10 @@
         }
 
         .level-btn {
-            /* 🟢 修改 4: 稍微加深背景顏色不透明度，讓按鈕在地圖上更清楚 */
+            /* 加深背景顏色不透明度，讓按鈕在地圖上更清楚 */
             background-color: rgba(255, 253, 245, 0.95); 
             border: 4px solid var(--primary-color);
-            border-radius: 50%; /* 圓形如同銅錢或圖章 */
+            border-radius: 50%; 
             width: 100px;
             height: 100px;
             font-size: 1.1em;
@@ -199,7 +214,6 @@
 
         .arrow-icon {
             font-size: 2.5em; color: var(--primary-color); margin: 0 5px;
-            /* 增加文字陰影讓箭頭在地圖上明顯 */
             text-shadow: 2px 2px 0 rgba(255,255,255,0.9); 
             z-index: 1; display: block;
         }
@@ -505,7 +519,7 @@
         const ITEMS_PER_ROW = 4;
         const PLAYLIST = ['sounds/bgm1.mp3', 'sounds/bgm2.mp3', 'sounds/bgm3.mp3'];
         
-        // 🟢 設定資料儲存前綴，避免與地理 App 衝突
+        // 設定資料儲存前綴，避免與地理 App 衝突
         const APP_PREFIX = 'history_';
 
         let currentTrackIndex = 0;
@@ -527,7 +541,6 @@
         fetch('questions.json').then(res => res.json()).then(data => { allQuestions = data; renderQuickLogin(); }).catch(e => console.error(e));
 
         // --- 資料儲存 Key 產生器 (隔離使用者) ---
-        // 🟢 修改: 加上 APP_PREFIX
         function getUserKey(key) { return APP_PREFIX + userName + '_' + key; }
 
         function selectAvatar(filename, element) {
@@ -536,7 +549,6 @@
             element.classList.add('selected');
         }
 
-        // 🟢 修改: 讀取帶有前綴的 savedUsers
         function getSavedUsers() { 
             return JSON.parse(localStorage.getItem(APP_PREFIX + 'savedUsers')) || []; 
         }
@@ -566,16 +578,11 @@
         }
         function deleteUser(name) {
             if (!confirm(`確定要刪除「${name}」的所有功名資料嗎？\n(包含紀錄、錯題本)`)) return;
-            
-            // 🟢 修改: 刪除時加上前綴
             localStorage.removeItem(APP_PREFIX + name + '_mistakeBank');
             localStorage.removeItem(APP_PREFIX + name + '_quizHistory');
             localStorage.removeItem(APP_PREFIX + name + '_quizProgress');
-            
             let users = getSavedUsers();
             users = users.filter(u => (typeof u === 'string' ? u : u.name) !== name);
-            
-            // 🟢 修改: 寫入時加上前綴
             localStorage.setItem(APP_PREFIX + 'savedUsers', JSON.stringify(users));
             renderQuickLogin();
         }
@@ -583,16 +590,12 @@
             const inputName = document.getElementById('username').value.trim();
             if (!inputName) { alert("請留下大名！"); return; }
             userName = inputName;
-            
-            // 🟢 修改: 寫入時加上前綴
             localStorage.setItem(APP_PREFIX + 'quizUserName', userName);
             localStorage.setItem(APP_PREFIX + 'quizUserAvatar', currentAvatar);
 
             let users = getSavedUsers();
             users = users.filter(u => (typeof u === 'string' ? u : u.name) !== userName);
             users.push({ name: userName, avatar: currentAvatar });
-            
-            // 🟢 修改: 寫入時加上前綴
             localStorage.setItem(APP_PREFIX + 'savedUsers', JSON.stringify(users));
 
             if (!isPlaying) playMusic();
